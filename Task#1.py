@@ -20,3 +20,4 @@ nameless_function(4)
 nameless_function(5)
 
 print(nameless_function.calls)
+
