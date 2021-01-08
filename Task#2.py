@@ -25,3 +25,4 @@ def wishes(*args, **kwargs):
 
 
 wishes(["Happy", "New"], year=2021, this_year="cow")
+
