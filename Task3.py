@@ -24,8 +24,10 @@ class CircleIterator:
         return output
 
 
-my_circle = Circle("Hello this beautiful world", 7)
+my_circle = Circle("Winter Spring Summer Autumn", 7)
 
 
 for i in my_circle:
     print(i)
+
+    
