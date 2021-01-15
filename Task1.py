@@ -21,3 +21,5 @@ my_iter = Sentence("Hello this beautiful world")
 
 for i in my_iter:
     print(i)
+
+    
