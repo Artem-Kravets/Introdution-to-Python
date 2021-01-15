@@ -1,7 +1,7 @@
 class Circle:
 
     def __init__(self, seasons, max_times):
-        self.seasons = seasons.split(" ")
+        self.seasons = seasons
         self.max_times = max_times
 
     def __iter__(self):
@@ -24,7 +24,7 @@ class CircleIterator:
         return output
 
 
-my_circle = Circle("Winter Spring Summer Autumn", 7)
+my_circle = Circle(["Winter", "Spring", "Summer", "Autumn"], 7)
 
 
 for i in my_circle:
