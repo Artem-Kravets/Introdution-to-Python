@@ -31,7 +31,7 @@ fig.update_layout(
 )
 
 
-def generate_table(dataframe, max_rows=15):
+def generate_table(dataframe, max_rows=507):
     return html.Table([
         html.Thead(
             html.Tr([html.Th(col) for col in dataframe.columns])
