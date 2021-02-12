@@ -1,0 +1,57 @@
+1)N/A 
+2)N/A
+3)N/A
+4)CREATE TABLE category (
+category_id INTEGER PRIMARY KEY AUTOINCREMENT,
+category_name TEXT NOT NULL
+)
+5)INSERT INTO category(category_name)
+VALUES ('bread'), ('dairy'), ('fish'), ('meat'), ('vegetable');
+6) CREATE TABLE product (
+product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+product_name TEXT NOT NULL,
+product_price DECIMAL(10, 2) NOT NULL,
+category_id INTEGER,
+
+FOREIGN KEY (category_id)
+    REFERENCES category (category_id)
+)
+7)INSERT INTO product(product_name, product_price, category_id)
+     VALUES ('long loaf', 30, 1), ('baguette', 35, 1), ('bun', 25, 1),
+            ('milk', 30, 2), ('yogurt', 35, 2), ('sour cream', 20, 2),
+            ('salmon', 300, 3), ('carp', 100, 3), ('pike', 150, 3),
+            ('mutton', 200, 4), ('pork', 100, 4), ('beef', 150, 4),
+            ('cucumber', 25, 5), ('tomato', 35, 5), ('truffle', 300, 5)
+8)UPDATE product
+SET
+    product_price = 350
+WHERE
+    product_name = 'pork';
+9) UPDATE product
+SET
+    product_price = product_price + (product_price * 10)/100
+10) DELETE FROM product WHERE product_id = 2;
+11) SELECT * FROM product
+ORDER BY product_name
+12) SELECT * FROM product
+ORDER BY product_price desc 
+13) SELECT * FROM product
+ORDER BY product_price desc
+LIMIT 3
+14) SELECT * FROM product
+ORDER BY product_price asc
+LIMIT 3
+15) SELECT * FROM product
+ORDER BY product_price desc
+LIMIT 3, 3
+16) SELECT product_name FROM product
+ORDER BY product_price desc
+LIMIT 1
+17) SELECT product_name FROM product
+ORDER BY product_price asc
+LIMIT 1
+18) SELECT COUNT(product_id) as number_of_products  FROM product;
+19) SELECT AVG(product_price) as average_price_of_products  FROM product;
+20) CREATE VIEW main.v AS SELECT * FROM product
+ORDER BY product_price desc
+LIMIT 3
