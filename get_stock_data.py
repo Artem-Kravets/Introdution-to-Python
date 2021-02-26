@@ -20,7 +20,12 @@ STOCKS = {
     'Apple': 'AAPL',
     'Facebook': 'FB',
     'Microsoft': 'MSFT',
-    'Netflix': 'NFLX'
+    'Netflix': 'NFLX',
+    'Google': 'GOOGL',
+    'Tencent': 'TCEHY',
+    'Oracle': 'ORCL',
+    'Alibaba': 'BABA',
+    'Tesla': 'TSLA',
 }
 
 
@@ -36,7 +41,7 @@ def get_stock_data(session, name, symbol, api_key, function, datatype):
     response = session.get(API_URL, params=params)
 
     if "5 calls per minute and 500 calls per day" in response.text:
-        print("1 min")
+        print("Waiting for 1 min")
         time.sleep(API_CALL_SLEEP_SEC)
         response = session.get(API_URL, params=params)
 
