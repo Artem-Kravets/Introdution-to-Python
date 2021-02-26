@@ -1,30 +1,45 @@
 import pandas as pd
 
-df_amazon = pd.read_csv('data/stocks/Amazon_monthly.csv')
-df_amazon["name"] = "Amazon"
-final_df_amazon = df_amazon.loc[:12, :].copy()
-final_df_amazon.drop(columns=["Unnamed: 0"], axis=1, inplace=True)
+
+def stocks_data_preprocessing(company_name):
+    get_data = pd.read_csv(f'data/stocks/{company_name}_monthly.csv')
+    df = pd.DataFrame(get_data)
+    df.insert(2, "name", company_name, True)
+    final_df = df.loc[:12, :].copy()
+    final_df.drop(columns=["Unnamed: 0"], axis=1, inplace=True)
+    final_df.to_csv(f'data/stocks/{company_name}_monthly_after.csv')
+    return final_df
 
 
-df_apple = pd.read_csv('data/stocks/Apple_monthly.csv')
-df_apple["name"] = "Apple"
-final_df_apple = df_apple.loc[:12, :].copy()
-final_df_apple.drop(columns=["Unnamed: 0"], axis=1, inplace=True)
+def crypto_data_preprocessing(crypto_name):
+    get_data = pd.read_csv(f'data/cryptos/{crypto_name}_monthly.csv')
+    df = pd.DataFrame(get_data)
+    df.rename(columns={'open (USD)': 'open', 'high (USD)': 'high', 'low (USD)': 'low', 'close (USD)': 'close'},
+              inplace=True)
+    df.insert(2, "name", crypto_name, True)
+    final_df = df.loc[:12, :].copy()
+    final_df.drop(columns=["Unnamed: 0", "open (USD).1", "high (USD).1", "low (USD).1", "close (USD).1",
+                           "market cap (USD)"], axis=1, inplace=True)
+    final_df.to_csv(f'data/cryptos/{crypto_name}_monthly_after.csv')
+    return final_df
 
-df_facebook = pd.read_csv('data/stocks/Facebook_monthly.csv')
-df_facebook["name"] = "Facebook"
-final_df_facebook = df_facebook.loc[:12, :].copy()
-final_df_facebook.drop(columns=["Unnamed: 0"], axis=1, inplace=True)
 
-df_microsoft = pd.read_csv('data/stocks/Microsoft_monthly.csv')
-df_microsoft["name"] = "Microsoft"
-final_df_microsoft = df_microsoft.loc[:12, :].copy()
-final_df_microsoft.drop(columns=["Unnamed: 0"], axis=1, inplace=True)
+companies = ("Amazon", "Apple", "Facebook", "Microsoft", "Netflix", "Alibaba", "Tesla", "Tencent", "Oracle", "Google")
+cryptos = ("Bitcoin", "Ethereum", "Ripple", "Cardano", "Binance Coin")
 
-df_netflix = pd.read_csv('data/stocks/Netflix_monthly.csv')
-df_netflix["name"] = "Netflix"
-final_df_netflix = df_netflix.loc[:12, :].copy()
-final_df_netflix.drop(columns=["Unnamed: 0"], axis=1, inplace=True)
 
-df_final = pd.concat([final_df_amazon, final_df_netflix, final_df_apple, final_df_microsoft, final_df_facebook])
-df_final.to_csv("data/stocks/Stocks.csv")
+df_final_cryptos = pd.DataFrame()
+
+for crypto in cryptos:
+    crypto_df = crypto_data_preprocessing(crypto)
+    df_final_cryptos = df_final_cryptos.append(crypto_df)
+
+df_final_cryptos.to_csv("data/cryptos/Cryptos.csv", index=False)
+
+
+df_final_stocks = pd.DataFrame()
+for company in companies:
+    company_df = stocks_data_preprocessing(company)
+    df_final_stocks = df_final_stocks.append(company_df)
+
+df_final_stocks.to_csv("data/stocks/Stocks.csv", index=False)
